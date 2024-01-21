@@ -49,5 +49,6 @@ Feel free to explore, customize, and enhance the Cafe Shop app for your specific
 
 ![3](https://github.com/SinirliJapon/cafe_shop/assets/74076865/d9f8e733-76d2-455c-8e54-eeb4fb3aaef5)
 
+![4](https://github.com/SinirliJapon/cafe_shop/assets/74076865/bec69e5e-fba5-493e-b325-f7050d075988)
 
 
