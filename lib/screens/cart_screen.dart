@@ -58,6 +58,7 @@ class _CartScreenState extends State<CartScreen> {
                   color: ThemeColor.primaryColor,
                   child: ListTile(
                     title: Text('Total: ${item.calculateTotalPrice().toStringAsFixed(2)} PLN', style: Styles.titleTextStyle),
+                    trailing: PayButton(cafeProvider: cafeProvider),
                   ),
                 ),
               ],
@@ -65,23 +66,47 @@ class _CartScreenState extends State<CartScreen> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (cafeProvider.cartItems.isNotEmpty) {
-            final List<OrderItem> orderItems = cafeProvider.cartItems.map((cartItem) {
-              return OrderItem(cafeItemId: cartItem.id, quantity: cafeProvider.itemQuantities[cartItem.id] ?? 0);
-            }).toList();
-            OrderHistory().addOrder(orderItems, cafeProvider.calculateTotalPrice());
-            cafeProvider.clearCart();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Cannot place an order with an empty cart.'),
-              ),
-            );
-          }
-        },
-      ),
+    );
+  }
+}
+
+class PayButton extends StatelessWidget {
+  const PayButton({
+    super.key,
+    required this.cafeProvider,
+  });
+
+  final CafeProvider cafeProvider;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      color: ThemeColor.foregroundColor,
+      icon: const Icon(Icons.payment),
+      onPressed: () {
+        if (cafeProvider.cartItems.isNotEmpty) {
+          final List<OrderItem> orderItems = cafeProvider.cartItems.map((cartItem) {
+            return OrderItem(cafeItemId: cartItem.id, quantity: cafeProvider.itemQuantities[cartItem.id] ?? 0);
+          }).toList();
+          OrderHistory().addOrder(orderItems, cafeProvider.calculateTotalPrice());
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: ThemeColor.primaryColor[400],
+              duration: const Duration(seconds: 1),
+              content: const Text('Your payment has been made successfully!', style: Styles.snackBarTextStyle),
+            ),
+          );
+          cafeProvider.clearCart();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: ThemeColor.primaryColor[400],
+              duration: const Duration(seconds: 1),
+              content: const Text('Cannot place an order with an empty cart.', style: Styles.snackBarTextStyle),
+            ),
+          );
+        }
+      },
     );
   }
 }

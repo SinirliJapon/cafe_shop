@@ -40,7 +40,18 @@ class CafeItemListWidget extends StatelessWidget {
                 leading: SizedBox(height: screenWidth / 2, child: Image(image: AssetImage(cafeItem.image), fit: BoxFit.contain)),
                 title: Text(cafeItem.name, style: Styles.orderTitleTextStyle),
                 subtitle: Text("${cafeItem.price.toStringAsFixed(2)} PLN", style: Styles.orderSubtitleTextStyle),
-                trailing: IconButton(onPressed: () => onAddToCart(cafeItem), icon: const Icon(Icons.add_circle_outline, color: Colors.brown)),
+                trailing: IconButton(
+                    onPressed: () {
+                      onAddToCart(cafeItem);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: ThemeColor.primaryColor[400],
+                          content: const Text('Item added to the cart', style: Styles.snackBarTextStyle),
+                          duration: const Duration(milliseconds: 10),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.add_circle_outline, color: Colors.brown)),
                 tileColor: Colors.grey[200],
               ),
             ),

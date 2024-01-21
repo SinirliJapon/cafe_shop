@@ -47,42 +47,45 @@ class _HomeScreenState extends State<HomeScreen> {
         foregroundColor: ThemeColor.foregroundColor,
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              padding: EdgeInsets.only(bottom: 20.0),
-              decoration: BoxDecoration(color: ThemeColor.primaryColor),
-              child: Center(child: Text('Cafe App', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0, color: Colors.white))),
-            ),
-            DrawerListTile(
-              title: 'Cafe Shop',
-              icon: Icons.coffee,
-              onTap: () {
-                Navigator.pop(context);
-                navigateDrawerItem(0);
-              },
-            ),
-            const Divider(color: ThemeColor.primaryColor),
-            DrawerListTile(
-              title: 'Cart',
-              icon: Icons.shopping_cart,
-              onTap: () {
-                Navigator.pop(context);
-                navigateDrawerItem(1);
-              },
-            ),
-            const Divider(color: ThemeColor.primaryColor),
-            DrawerListTile(
-              title: 'Order History',
-              icon: Icons.history,
-              onTap: () {
-                Navigator.pop(context);
-                navigateDrawerItem(2);
-              },
-            ),
-            const Divider(color: ThemeColor.primaryColor),
-          ],
+        child: Container(
+          color: ThemeColor.tileColor,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                padding: EdgeInsets.only(bottom: 20.0),
+                decoration: BoxDecoration(color: ThemeColor.primaryColor),
+                child: Center(child: Text('Cafe App', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0, color: Colors.white))),
+              ),
+              DrawerListTile(
+                title: 'Cafe Shop',
+                icon: Icons.coffee,
+                onTap: () {
+                  Navigator.pop(context);
+                  navigateDrawerItem(0);
+                },
+              ),
+              const Divider(color: ThemeColor.primaryColor),
+              DrawerListTile(
+                title: 'Cart',
+                icon: Icons.shopping_cart,
+                onTap: () {
+                  Navigator.pop(context);
+                  navigateDrawerItem(1);
+                },
+              ),
+              const Divider(color: ThemeColor.primaryColor),
+              DrawerListTile(
+                title: 'Order History',
+                icon: Icons.history,
+                onTap: () {
+                  Navigator.pop(context);
+                  navigateDrawerItem(2);
+                },
+              ),
+              const Divider(color: ThemeColor.primaryColor),
+            ],
+          ),
         ),
       ),
       body: PageView(
