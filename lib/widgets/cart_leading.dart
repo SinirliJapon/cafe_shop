@@ -14,9 +14,9 @@ class CartLeading extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text("x$quantity", style: Styles.cafeTitleTextStyle),
+        Text("x$quantity", style: Styles.orderTitleTextStyle),
         const SizedBox(width: 10),
-        SizedBox(height: screenWidth / 2, child: Image.network(cartItem.image, fit: BoxFit.contain)),
+        SizedBox(height: screenWidth / 2, child: Image(image: AssetImage(cartItem.image), fit: BoxFit.contain)),
       ],
     );
   }

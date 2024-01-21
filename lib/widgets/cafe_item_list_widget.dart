@@ -23,20 +23,23 @@ class CafeItemListWidget extends StatelessWidget {
     return Column(
       children: [
         ExpansionTile(
-          title: Text(categoryTitle, style: Styles.titleTextStyle),
-          iconColor: ThemeColor.foregroundColor,
-          collapsedIconColor: ThemeColor.foregroundColor,
-          collapsedBackgroundColor: ThemeColor.primaryColor[400],
+          leading: Icon(icon),
+          title: Text(categoryTitle, style: const TextStyle(fontWeight: FontWeight.bold)),
           backgroundColor: Colors.grey[200],
-          textColor: Colors.black,
-          trailing: Icon(icon),
+          textColor: ThemeColor.primaryColor,
+          iconColor: ThemeColor.primaryColor,
+          collapsedBackgroundColor: ThemeColor.primaryColor[400],
+          collapsedTextColor: ThemeColor.foregroundColor,
+          collapsedIconColor: ThemeColor.foregroundColor,
+          initiallyExpanded: true,
           children: [
             ...items.map(
               (cafeItem) => ListTile(
+                minVerticalPadding: 10,
                 shape: const Border(bottom: BorderSide(width: 0.5, color: Colors.grey)),
-                leading: SizedBox(height: screenWidth / 2, child: Image.network(cafeItem.image, fit: BoxFit.contain)),
-                title: Text(cafeItem.name, style: Styles.cafeTitleTextStyle),
-                subtitle: Text("${cafeItem.price.toStringAsFixed(2)} PLN", style: Styles.cafeSubtitleTextStyle),
+                leading: SizedBox(height: screenWidth / 2, child: Image(image: AssetImage(cafeItem.image), fit: BoxFit.contain)),
+                title: Text(cafeItem.name, style: Styles.orderTitleTextStyle),
+                subtitle: Text("${cafeItem.price.toStringAsFixed(2)} PLN", style: Styles.orderSubtitleTextStyle),
                 trailing: IconButton(onPressed: () => onAddToCart(cafeItem), icon: const Icon(Icons.add_circle_outline, color: Colors.brown)),
                 tileColor: Colors.grey[200],
               ),

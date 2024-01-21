@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cafe_shop/model/order.dart';
+import 'package:cafe_shop/repository/order_history.dart';
 import 'package:cafe_shop/resource/styles.dart';
 import 'package:cafe_shop/resource/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +25,6 @@ class _CartScreenState extends State<CartScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ThemeColor.primaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: const Center(child: Text('Cart', style: Styles.titleTextStyle)),
-      ),
       body: Consumer<CafeProvider>(
         builder: (context, item, child) {
           if (item.isLoading) {
@@ -38,6 +35,7 @@ class _CartScreenState extends State<CartScreen> {
             return Column(
               children: [
                 Expanded(
+                  flex: 10,
                   child: ListView.builder(
                     itemCount: item.cartItems.length,
                     itemBuilder: (context, index) {
@@ -47,26 +45,43 @@ class _CartScreenState extends State<CartScreen> {
 
                       return ListTile(
                         leading: CartLeading(quantity: quantity, screenWidth: screenWidth, cartItem: cartItem),
-                        title: Text(cartItem.name, style: Styles.cafeTitleTextStyle),
+                        title: Text(cartItem.name, style: Styles.orderTitleTextStyle),
                         subtitle: Text("${totalItemPrice.toStringAsFixed(2)} PLN", style: Styles.cafeSubtitleTextStyle),
                         trailing: CartTrailing(cartItem: cartItem),
                         shape: const Border(bottom: BorderSide(width: 1.0, color: ThemeColor.primaryColor)),
-                        tileColor: Colors.grey[200],
+                        tileColor: ThemeColor.tileColor,
                       );
                     },
                   ),
                 ),
-                ListTile(
-                  title: Text('Total: ${item.calculateTotalPrice().toStringAsFixed(2)} PLN', style: Styles.titleTextStyle),
-                  iconColor: ThemeColor.foregroundColor,
-                  tileColor: ThemeColor.primaryColor,
+                Container(
+                  color: ThemeColor.primaryColor,
+                  child: ListTile(
+                    title: Text('Total: ${item.calculateTotalPrice().toStringAsFixed(2)} PLN', style: Styles.titleTextStyle),
+                  ),
                 ),
               ],
             );
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(onPressed: cafeProvider.clearCart),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (cafeProvider.cartItems.isNotEmpty) {
+            final List<OrderItem> orderItems = cafeProvider.cartItems.map((cartItem) {
+              return OrderItem(cafeItemId: cartItem.id, quantity: cafeProvider.itemQuantities[cartItem.id] ?? 0);
+            }).toList();
+            OrderHistory().addOrder(orderItems, cafeProvider.calculateTotalPrice());
+            cafeProvider.clearCart();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Cannot place an order with an empty cart.'),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cafe_shop/resource/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cafe_shop/provider/cafe_provider.dart';
@@ -26,13 +25,6 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     final CafeProvider cafeProvider = Provider.of<CafeProvider>(context, listen: false);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.brown,
-        surfaceTintColor: Colors.transparent,
-        foregroundColor: Colors.white,
-        title: const Center(child: Text('Cafe Restaurant', style: Styles.titleTextStyle)),
-      ),
-      drawer: const Drawer(),
       body: Consumer<CafeProvider>(
         builder: (context, item, child) {
           if (item.isLoading) {

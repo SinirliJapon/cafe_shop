@@ -1,7 +1,6 @@
 class CafeItem {
   final int id;
   final String name;
-
   final double price;
   final String image;
 

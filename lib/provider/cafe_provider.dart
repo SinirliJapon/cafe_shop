@@ -24,7 +24,7 @@ class CafeProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      final String jsonData = await rootBundle.loadString('assets/data.json');
+      final String jsonData = await rootBundle.loadString('assets/data/data.json');
       final Map<String, dynamic> parsedJson = jsonDecode(jsonData);
       final List<dynamic> drinkList = parsedJson['drinks'];
       final List<dynamic> dessertList = parsedJson['desserts'];
@@ -40,6 +40,34 @@ class CafeProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+  }
+
+  CafeItem? getCafeItemById(int cafeItemId) {
+    for (var item in _drinkItems) {
+      if (item.id == cafeItemId) {
+        return item;
+      }
+    }
+
+    for (var item in _desertItems) {
+      if (item.id == cafeItemId) {
+        return item;
+      }
+    }
+
+    for (var item in _breakfastItems) {
+      if (item.id == cafeItemId) {
+        return item;
+      }
+    }
+
+    for (var item in _sandwichItems) {
+      if (item.id == cafeItemId) {
+        return item;
+      }
+    }
+
+    return null;
   }
 
   void addToCart(CafeItem item) {
