@@ -6,30 +6,23 @@ Cafe Shop is a Flutter mobile application that allows users to browse, select, a
 
 ## Technologies Used
 
-- Flutter
-- AutoRoute
-- Provider
-- Hive
+- Flutter: [flutter.dev](https://flutter.dev/)
+- Provider: [pub.dev/packages/provider](https://pub.dev/packages/provider)
+- AutoRoute: [pub.dev/packages/auto_route](https://pub.dev/packages/auto_route)
+- Hive [pub.dev/packages/hive](https://pub.dev/packages/hive)
 
 ## Features
 
-1- Cafe Item Selection:
-   - Users can browse through a list of cafe items.
-   - Select desired items to add them to the shopping cart.
+- Users can browse through a list of cafe items.
+- Select desired items to add them to the shopping cart.
+- View selected items in the cart screen.
+- Adjust quantities or remove items from the cart.   
+- Users can press the "Pay" button to complete the order.
+- Payment success or failure is displayed through a snackbar.
+- View past orders in the order history screen.
+- Each order displays the total price, order date, and individual items.
 
-2- Shopping Cart:
-  - View selected items in the cart screen.
-  - Adjust quantities or remove items from the cart.   
-
-3- Payment:
-  - Users can press the "Pay" button to complete the order.
-  - Payment success or failure is displayed through a snackbar.
-
-4- Order History:
-  - View past orders in the order history screen.
-  - Each order displays the total price, order date, and individual items.
-
-## How to Run
+## Getting Started
 
 1- Ensure you have Flutter installed on your machine.
 
